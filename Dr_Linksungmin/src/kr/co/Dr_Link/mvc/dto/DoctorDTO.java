@@ -5,30 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 public class DoctorDTO {
-	   
-	   /*
-	   doctor_num number(4) CONSTRAINT doctor_num_pk primary key,
-	    dep_num number,
-	    d_id varchar2(20) not null,
-	    d_pwd varchar2(20) not null,
-	    d_name varchar2(15) not null,
-	    d_gender char(2) not null,
-	    d_jumin_num char(13) not null,
-	    d_phone_num char(13) not null,
-	    d_zipcode varchar2(50) not null,
-	    d_address1 varchar2(60) not null,
-	    d_address2  varchar2(50),
-	    d_email varchar2(30) not null,
-	    d_graduation varchar2(150) not null,
-	    d_career varchar2(200),
-	    d_licence varchar2(100),
-	    d_licence_num varchar2(20),
-	    d_photo varchar2(50),
-	    d_regdate date default sysdate, 
-	    d_content varchar2(500),
-	    d_field varchar2(100)
-	    
-	    */
 	    
 	    private int doctor_num, dep_num;
 	   private String d_id, d_pwd, d_name, d_jumin_num, d_phone_num, d_zipcode, d_address1, d_address2, d_email;
