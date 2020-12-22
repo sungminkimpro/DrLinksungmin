@@ -12,7 +12,7 @@
 	
  	<!-- 회원가입 -->
 	<insert id="add" parameterType="doctorDTO">
-		insert into dl_doctor(doctor_num, d_id, d_pwd, d_name, d_gender, d_jumin_num, d_phone_num, d_zipcode, d_address1, d_address2, d_email, d_graduation, d_career, d_imgfile) values(doctor_num_pk.nextval,#{d_id}, #{d_pwd}, #{d_name}, #{d_gender}, #{d_jumin_num}, #{d_phone_num}, #{d_zipcode}, #{d_address1}, #{d_address2}, #{d_email}, #{d_graduation2}, #{d_career}, #{d_imgfile})
+		insert into dl_doctor(doctor_num, d_id, d_pwd, d_name, d_gender, d_jumin_num, d_phone_num, d_zipcode, d_address1, d_address2, d_email, d_imgfile) values(doctor_num_pk.nextval,#{d_id}, #{d_pwd}, #{d_name}, #{d_gender}, #{d_jumin_num}, #{d_phone_num}, #{d_zipcode}, #{d_address1}, #{d_address2}, #{d_email}, #{d_imgfile})
 	</insert>
 
   

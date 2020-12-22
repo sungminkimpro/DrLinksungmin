@@ -469,9 +469,9 @@ label{
 											</div>
 											<div class="col-6">
 												<div class="form-group">
-												<label class="">d_graduation2<span class="text-danger">*</span></label>
-												<input id="d_graduation2" name="d_graduation2" class="form-control" maxlength="50" size="40" value="" type="text" placeholder="미정">
-												<div class="check_font" id="d_graduation2_check"></div>
+												<label class="">d_graduation<span class="text-danger">*</span></label>
+												<input id="d_graduation" name="d_graduation" class="form-control" maxlength="50" size="40" value="" type="text" placeholder="미정">
+												<div class="check_font" id="d_graduation_check"></div>
 												</div>
 											</div>
 											<div class="col-6">

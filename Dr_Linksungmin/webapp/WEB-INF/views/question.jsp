@@ -76,6 +76,11 @@ ul .bxslider {
 #bxslider {
 	width: auto !important;
 }
+
+ul .pagination{
+	position: absolute;
+	left: 50%;
+}
 </style>
 <script>
 	function selChange() {
@@ -116,74 +121,119 @@ ul .bxslider {
 		</div>
 		<!-- /Breadcrumb -->
 		
+		        <div class="box-body">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th style="width: 30px">#</th>
+                    <th>제목</th>
+                    <th style="width: 100px">작성자</th>
+                    <th style="width: 150px">작성시간</th>
+                    <th style="width: 60px">조회</th>
+                </tr>
+                <c:forEach items="${articles}" var="article">
+                <tr>
+                    <td>${article.articleNo}</td>
+                    <td><a href="${path}/article/read?articleNo=${article.articleNo}">${article.title}</a></td>
+                    <td>${article.writer}</td>
+                    <td><fmt:formatDate value="${article.regDate}" pattern="yyyy-MM-dd a HH:mm"/></td>
+                    <td><span class="badge bg-red">${article.viewCnt}</span></td>
+                </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        
+        
+        
+	
+		<!-- FAQ Table -->	
 		<div class="container" style="max-width: 1400px;">
 			<div class="container-fluid">
-						<h2>자주 묻는 질문</h2>
+				<h2>자주 묻는 질문</h2>
 			</div>
 			<div class="col-md-12">
 				<section class="section section-specialities">			
 					<ul class="list-inline">		
 						<li><img src="${pageContext.request.contextPath}/resources/img/search-bg.png"
-						style="position: absolute; top:0; left: 0;
+							style="position: absolute; top:0; left: 0;
 							width: 100%;
-							height: 100%;"></li>
+							height: 100%;">
+						</li>
 					</ul>
+				</section>
 			</div>
 			<div class="accordion" id="accordionExample">
-  				<div class="card" style="margin-bottom: 0rem;">
+				<div class="card" style="margin-bottom: 0rem;">
 					<div class="card-header" id="headingOne">
-      					<h5 class="mb-0">
-					        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-					          	원무관련
-					        </button>
-      					</h5>
-    				</div>
-
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body">
-        인터넷상으로 진료예약 후 변경, 취소가 되는지요? 
-      </div>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom: 0rem;">
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        	 진료관련
-        </button>
-      </h5>
-	</div>
-	    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-			<div class="card-body">
-			  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-			</div>
-	    </div>
-	</div>
-  <div class="card" style="margin-bottom: 0rem;">
-    <div class="card-header" id="headingThree">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-         	 병원관련
-        </button>
-      </h5>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
-  </div>
-</div>
-
+						<h5 class="mb-0">
+						  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						    	${article.title}
+						  </button>
+						</h5>
 					</div>
+				
+				   <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+				     <div class="card-body">
+				       인터넷상으로 진료예약 후 변경, 취소가 되는지요? 
+				     </div>
+				   </div>
+				</div>
+				<div class="card" style="margin-bottom: 0rem;">
+				   <div class="card-header" id="headingTwo">
+				     <h5 class="mb-0">
+				       <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+				       	 진료관련
+				       </button>
+				     </h5>
+				</div>
+				    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+						<div class="card-body">
+						  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+						</div>
+				    </div>
+				</div>
+				<div class="card" style="margin-bottom: 0rem;">
+				    <div class="card-header" id="headingThree">
+				      <h5 class="mb-0">
+				        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+				         	 병원관련
+				        </button>
+				      </h5>
+				    </div>
+				    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+				      <div class="card-body">
+				        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+				     </div>
+					</div>
+				</div>
 			</div>
-
-			</section>
 		</div>
-	</div>
-	<!-- /notice Table -->
+		<!-- /FAQ Table -->
 
-
+		<div class="row">
+			<div class="col-sm-12 col-md-7">
+				<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+					<ul class="pagination">
+						<li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+							<a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+						</li>
+						<li class="paginate_button page-item active">
+							<a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+						</li>
+						<li class="paginate_button page-item ">
+							<a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+						</li>
+						<li class="paginate_button page-item ">
+							<a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a>
+						</li>
+						<li class="paginate_button page-item next" id="DataTables_Table_0_next">
+							<a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">Next</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
 
 
