@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+	<!-- DispatcherServlet 이 해당 어노테이션을 인식하도록 즉 스프링 컨테이너에 빈들로 자동으로 등록하도록 한다. -->
+	<context:component-scan base-package="kr.co.Dr_Link.mvc"/>
+	
+	<!-- mvc 기반의 어노테이션 가능 설정 -->
+	<mvc:annotation-driven/>
+	
+	<!-- aop를 자동적으로 DI 해주는 코드 -->
+	<aop:aspectj-autoproxy/>
+	
+	<!-- JNDI 설정 -->
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/Dr_Link"></property>
+	</bean>
+	
+	<!-- MyBatis -->
+	<bean id="factoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:kr/co/Dr_Link/mvc/config/config.xml"/>
+		<property name="mapperLocations" value="classpath*:kr/co/Dr_Link/mvc/mapper/*Mapper.xml"></property>
+	</bean>	
+		
+	<!-- SqlSessionFactoryBean 이름을 정의한 이름으로 참조시키기 -->
+	<bean id="ss" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="factoryBean"/>
+	</bean>	
+		
+	<!-- web.xml에서 / 로 경로를 주었을 때 클라이언트 베이스 -->
+	<!-- js, css, image 같은 경로가 "/" 인식을 못하는 것을 인식 되도록 상위 경로인 resources를 매핑 시켜준다. -->
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	
+	<!-- viewResolver 설정 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- fileUploadViewResolver -->
+	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+         <!-- 최대업로드 가능한 바이트크기 -->
+         <property name="maxUploadSize" value="52428800" />
+
+
+         <!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+         <!-- property name="maxInMemorySize" value="52428800" / -->
+
+         <!-- defaultEncoding -->
+         <property name="defaultEncoding" value="utf-8" />
+
+	</bean>
+	
+	<bean id = "uploadPath" class="java.lang.String">
+		<constructor-arg value="C:\SungminKim\GoogleDrive\spring\basic\Dr_Link\webapp\resources\img\profileImage">
+	
+		</constructor-arg>
+	</bean>
+	
+</beans>

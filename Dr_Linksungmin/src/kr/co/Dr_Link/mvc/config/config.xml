@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+ <configuration>
+ 	<typeAliases>
+ 		<typeAlias type="kr.co.Dr_Link.mvc.dto.PatientDTO" alias="patientDTO"/>
+ 		<typeAlias type="kr.co.Dr_Link.mvc.dto.DoctorDTO" alias="doctorDTO"/>
+ 		<typeAlias type="kr.co.Dr_Link.mvc.dto.Hospital_boardDTO" alias="h_boardDTO"/>
+ 		<typeAlias type="kr.co.Dr_Link.mvc.dto.NewsDTO" alias="newsDTO"/>
+ 		<typeAlias type="kr.co.Dr_Link.mvc.dto.NewsReplDTO" alias="newsReplDTO"/>
+ 		<typeAlias type="kr.co.Dr_Link.mvc.dto.PrescriptionDTO" alias="prescriptionDTO"/> 
+ 		<typeAlias type="kr.co.Dr_Link.mvc.dto.DepartmentDTO" alias="departmentDTO"/>
+ 	</typeAliases>
+ </configuration>

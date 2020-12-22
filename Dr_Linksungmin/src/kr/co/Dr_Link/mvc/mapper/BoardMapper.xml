@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="board">
+  
+  <insert id="add" parameterType="h_boardDTO">
+  	insert into member_aop values(MEMBER_AOP_SEQ.nextval, #{id}, #{pwd}, #{name}, sysdate)
+  </insert>
+  
+  <select id="boardDetail" parameterType="String" resultType="h_boardDTO">
+  	select * from hospital_board where hospital_board_num=#{h_b_num}
+  </select>
+  
+  <select id="boardList" resultType="h_boardDTO">
+  	SELECT ROW_NUMBER() over (order by h.hospital_board_num) row_num, h.* 
+  	from hospital_board h where rownum between 1 and 10 order by h.hospital_board_num
+  </select>
+  
+  <select id="boardListPage" parameterType="int" resultType="h_boardDTO">
+  select hh.* from
+(SELECT h.*, ROWNUM as rnum FROM ( SELECT * from hospital_board ORDER BY hospital_board_num) h) hh 
+WHERE rnum between #{start} and #{end}
+  </select>
+  
+  <update id="plusCnt" parameterType="String">
+  	update hospital_board set h_watched = h_watched+1 where hospital_board_num=#{h_b_num}   
+  </update>
+  
+    <select id="getCnt" resultType="int">
+        select count(*) from hospital_board
+    </select>
+  
+  <!-- select count(*) cnt, id, name from member_aop where id=#{id} group by name -->
+   <select id="getAll" resultType="h_boardDTO">
+  select hh.* from
+	(SELECT  COUNT(*) OVER () getCnt, h.*, ROWNUM as rnum FROM ( SELECT * from hospital_board ORDER BY hospital_board_num) h) hh 
+	WHERE rnum between 1 and 20
+  </select>
+  
+  <select id="getAllNewsBoards" parameterType="int" resultType="newsDTO">
+  	select nb.* from
+	(SELECT COUNT(*) OVER () getCnt, n.*, ROWNUM as rnum FROM ( SELECT * from news_board ORDER BY news_board_num) n) nb 
+	WHERE rnum
+	<choose>
+	<when test="start gt 0"> between #{start} and #{end}</when>
+	<otherwise> between 1 and 4 </otherwise>
+	</choose>
+  </select>
+  
+  <select id="getNewsBoardsDetail" parameterType="int" resultType="newsDTO">
+  	SELECT getCnt, nb.*  FROM ( SELECT COUNT(*) getCnt from news_repl where news_board_num = #{b_num} ) nr, 
+  	news_board nb WHERE news_board_num = #{b_num}
+  </select>
+
+<resultMap type="patientDTO" id="patientResult">
+	<id property="patient_num" column="patient_num" javaType="int"/>
+	<result property="p_id" column="p_id"/>
+</resultMap>
+
+<resultMap type="doctorDTO" id="doctorResult">
+	<id property="doctor_num" column="doctor_num" javaType="int"/>
+	<result property="d_id" column="d_id"/>
+</resultMap>
+
+<resultMap type="newsReplDTO" id="news_replResult">
+	<id property="news_board_num" column="news_board_num" javaType="int"/>
+	<result property="news_reply_num" column="news_reply_num"/>
+	<result property="news_repl_comment" column="news_repl_comment"/>
+	<result property="n_repl_date" column="n_repl_date"/>
+	<collection property="patients" javaType="java.util.List" resultMap="patientResult" ofType="patientDTO"/>
+	<collection property="doctors" javaType="java.util.List" resultMap="doctorResult" ofType="doctorDTO"/>
+</resultMap>
+
+<select id="news_replList" parameterType="int" 
+resultMap="news_replResult">
+
+select nr.news_reply_num news_reply_num, nr.news_repl_comment news_repl_comment, nr.n_repl_date n_repl_date, 
+p.p_id p_id, d.d_id d_id
+from dl_user p, news_repl nr, dl_doctor d 
+where p.patient_num(+) = nr.patient_num AND d.doctor_num(+) = nr.doctor_num AND nr.news_board_num = #{news_board_num}  
+order by nr.news_reply_num
+
+</select>
+  
+</mapper>
+
+<!--
+ INSERT INTO upLoadtemp (b_id, b_name, b_email, b_title, b_content, b_pwd, b_date,b_count, b_ip 
+<if test="b_fname != null">,b_fname, b_fsize </if>
+)VALUES ( uploadtemp_bid_seq.nextval, #{b_name}, #{b_email}, #{b_title}, #{b_content}, #{b_pwd}, sysdate,0, #{b_ip} 
+<if test="b_fname != null">, #{b_fname}, #{b_fsize} </if>
+) 
+    
+  	SELECT ROW_NUMBER() OVER(ORDER BY h.hospital_board_num) row_num
+     , h.*
+	  FROM hospital_board h
+	  where rownum between #{start} and #{end}
+	 ORDER BY h.hospital_board_num
+	 -->
